@@ -56,14 +56,15 @@ module "vm_talos_masters" {
     "node1" = {
       vmid        = 501
       target_node = "cube"
-      iso         = "local-btrfs:iso/talos-amd64.iso"
-      full_clone  = true
-      onboot      = true
+      pxe         = true
+      # network, cd-rom, hard disc
+      boot   = "ndc"
+      onboot = true
       network = [{
-        bridge   = "vmbr1"
-        model    = "virtio"
-        firewall = false
-        macaddr  = "aa:aa:aa:aa:aa:61"
+        bridge     = "vmbr1"
+        model      = "virtio"
+        firewall   = false
+        macaddress = "aa:aa:aa:aa:aa:61"
       }]
       init = {}
       disk = [{
