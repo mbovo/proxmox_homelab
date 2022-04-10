@@ -43,6 +43,8 @@ source "proxmox" "arch" {
   ssh_username = "root"
   ssh_password = "pi"
 
+  cloud_init = true
+
   network_adapters {
     model    = "virtio"
     bridge   = "vmbr1"
@@ -73,9 +75,9 @@ build {
     script = "packer/scripts/setup.sh"
   }
 
-  provisioner "shell" {
-    inline = [
-      "mkdir -p /mnt/archinstall/root/.ssh; echo '${var.sshkey}' > /mnt/archinstall/root/.ssh/authorized_keys"
-    ]
-  }
+  # provisioner "shell" {
+  #   inline = [
+  #     "mkdir -p /mnt/archinstall/root/.ssh; echo '${var.sshkey}' > /mnt/archinstall/root/.ssh/authorized_keys"
+  #   ]
+  # }
 }

@@ -39,11 +39,20 @@ cat <<EOF > config.json
         "openssh",
         "wget",
         "nano",
-        "git"
+        "git",
+        "sudo",
+        "cloud-init",
+        "cloud-guest-utils",
+        "qemu-guest-agent"
     ],
     "services": [
       "crio",
-      "sshd"
+      "sshd",
+      "cloud-init-local",
+      "cloud-init",
+      "cloud-config",
+      "cloud-final",
+      "qemu-guest-agent"
     ],
     "profile": "minimal",
     "swap": false,
@@ -109,3 +118,12 @@ EOF
 sleep 5
 
 archinstall --config ./config.json --creds ./creds.json --disk_layouts ./disks.json --silent
+sleep 5
+
+export NEWUSER="arch"
+export MOUNT="/mnt/archinstall"
+arch-chroot "${MOUNT}" /usr/bin/useradd -m -U "${NEWUSER}"
+echo -e "${NEWUSER}\n${NEWUSER}" | arch-chroot "${MOUNT}" /usr/bin/passwd "${NEWUSER}"
+echo "${NEWUSER} ALL=(ALL) NOPASSWD: ALL" >"${MOUNT}/etc/sudoers.d/${NEWUSER}"
+
+
