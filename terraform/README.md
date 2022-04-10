@@ -13,6 +13,7 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_vm_pixie"></a> [vm\_pixie](#module\_vm\_pixie) | ./modules/proxmox_vm | n/a |
+| <a name="module_vm_talos_masters"></a> [vm\_talos\_masters](#module\_vm\_talos\_masters) | ./modules/proxmox_vm | n/a |
 
 ## Resources
 

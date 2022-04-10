@@ -15,7 +15,7 @@ variable "vm" {
     sockets     = optional(number)
     memory      = optional(number)
     pool        = optional(string)
-    init = optional(object({
+    init = object({
       os_type          = optional(string)
       user             = optional(string)
       password         = optional(string)
@@ -29,7 +29,7 @@ variable "vm" {
       ipconfig5        = optional(string)
       automatic_reboot = optional(bool)
       sshkeys          = optional(string)
-    }))
+    })
 
     network = list(object({
       model      = string

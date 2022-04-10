@@ -44,3 +44,72 @@ resource "null_resource" "ansible_pixie" {
   depends_on = [module.vm_pixie]
 
 }
+
+module "vm_talos_masters" {
+  source = "./modules/proxmox_vm"
+
+  proxmox_debug      = true
+  proxmox_log_enable = true
+  proxmox_api_url    = "https://cube.i.zroot.org:8006/api2/json"
+
+  vm = {
+    "node1" = {
+      vmid        = 501
+      target_node = "cube"
+      iso         = "local-btrfs:iso/talos-amd64.iso"
+      full_clone  = true
+      onboot      = true
+      network = [{
+        bridge   = "vmbr1"
+        model    = "virtio"
+        firewall = false
+        macaddr  = "aa:aa:aa:aa:aa:61"
+      }]
+      init = {}
+      disk = [{
+        type    = "virtio"
+        storage = "local-btrfs"
+        size    = "4G"
+      }]
+    }
+  }
+  # },
+  # "node2" = {
+  #   vmid        = 502
+  #   target_node = "cube"
+  #   iso = "local-btrfs:iso/talos-amd64.iso"
+  #   full_clone  = true
+  #   onboot      = true
+  #   network = [{
+  #     bridge   = "vmbr1"
+  #     model    = "virtio"
+  #     firewall = false
+  #     macaddr = "aa:aa:aa:aa:aa:62"
+  #   }]
+  #   init = {}
+  #   disk = [{
+  #     type    = "virtio"
+  #     storage = "local-btrfs"
+  #     size    = "4G"
+  #   }]
+  # },
+  # "node3" = {
+  #   vmid        = 503
+  #   target_node = "cube"
+  #   iso = "local-btrfs:iso/talos-amd64.iso"
+  #   full_clone  = true
+  #   onboot      = true
+  #   network = [{
+  #     bridge   = "vmbr1"
+  #     model    = "virtio"
+  #     firewall = false
+  #     macaddr = "aa:aa:aa:aa:aa:63"
+  #   }]
+  #   init = {}
+  #   disk = [{
+  #     type    = "virtio"
+  #     storage = "local-btrfs"
+  #     size    = "4G"
+  #   }]
+  # }
+}
