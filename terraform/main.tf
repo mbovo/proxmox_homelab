@@ -39,7 +39,7 @@ resource "null_resource" "ansible_pixie" {
   provisioner "local-exec" {
 
     working_dir = "../ansible/"
-    command     = "sleep 120; ansible-playbook -i inventory ./pixie.yaml"
+    command     = "sleep 120; ansible-playbook -i inventory ./playbooks/pixie.yaml"
   }
   depends_on = [module.vm_pixie]
 
