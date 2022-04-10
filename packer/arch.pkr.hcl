@@ -43,7 +43,8 @@ source "proxmox" "arch" {
   ssh_username = "root"
   ssh_password = "pi"
 
-  cloud_init = true
+  cloud_init              = true
+  cloud_init_storage_pool = "local-btrfs"
 
   network_adapters {
     model    = "virtio"
