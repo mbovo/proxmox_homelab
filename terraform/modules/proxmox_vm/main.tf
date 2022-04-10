@@ -2,41 +2,41 @@
 resource "proxmox_vm_qemu" "proxmox_vm" {
   for_each = var.vm
   name     = each.key
-  desc     = defaults(each.value.desc, null)
-  onboot   = defaults(each.value.onboot, true)
+  desc     = each.value.desc
+  onboot   = try(each.value.onboot, true)
 
-  agent       = defaults(each.value.agent, false)
-  target_node = defaults(each.value.target_node, null)
-  boot        = defaults(each.value.boot, "cdn")
+  agent       = try(each.value.agent, 0)
+  target_node = each.value.target_node
+  boot        = try(each.value.boot, "cdn")
 
   # PXE, clone and iso are mutually exclusive
-  pxe = defaults(each.value.pxe, false)
+  pxe = try(each.value.pxe, false)
 
-  clone      = defaults(each.value.template, null)
-  full_clone = defaults(each.value.full_clone, true)
+  clone      = each.value.template
+  full_clone = try(each.value.full_clone, true)
 
-  iso = defaults(each.value.iso, null)
+  iso = each.value.iso
 
-  cores   = defaults(each.value.cores, 1)
-  sockets = defaults(each.value.sockets, 1)
-  memory  = defaults(each.value.memory, 512)
+  cores   = try(each.value.cores, 1)
+  sockets = try(each.value.sockets, 1)
+  memory  = try(each.value.memory, 512)
 
-  pool         = defaults(each.value.pool, null)
-  force_create = defaults(each.value.force_create, false)
+  pool         = each.value.pool
+  force_create = try(each.value.force_create, false)
 
-  os_type      = defaults(each.value.init.os_type, null)
-  ciuser       = defaults(each.value.init.user, null)
-  cipassword   = defaults(each.value.init.password, null)
-  searchdomain = defaults(each.value.init.searchdomain, null)
-  nameserver   = defaults(each.value.init.nameserver, null)
-  ipconfig0    = defaults(each.value.init.ipconfig0, null)
-  ipconfig1    = defaults(each.value.init.ipconfig1, null)
-  ipconfig2    = defaults(each.value.init.ipconfig2, null)
-  ipconfig3    = defaults(each.value.init.ipconfig3, null)
-  ipconfig4    = defaults(each.value.init.ipconfig4, null)
-  ipconfig5    = defaults(each.value.init.ipconfig5, null)
+  os_type      = each.value.init.os_type
+  ciuser       = each.value.init.user
+  cipassword   = each.value.init.password
+  searchdomain = each.value.init.searchdomain
+  nameserver   = each.value.init.nameserver
+  ipconfig0    = each.value.init.ipconfig0
+  ipconfig1    = each.value.init.ipconfig1
+  ipconfig2    = each.value.init.ipconfig2
+  ipconfig3    = each.value.init.ipconfig3
+  ipconfig4    = each.value.init.ipconfig4
+  ipconfig5    = each.value.init.ipconfig5
 
-  automatic_reboot = defaults(each.value.init.automatic_reboot, false)
+  automatic_reboot = try(each.value.init.automatic_reboot, false)
 
   dynamic "network" {
     for_each = each.value.network
@@ -44,12 +44,12 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     content {
       model     = network.value.model
       bridge    = network.value.bridge
-      firewall  = defaults(network.value.firewall, false)
-      link_down = defaults(network.value.link_down, false)
-      macaddr   = defaults(network.value.macaddress, null)
-      tag       = defaults(network.value.tag, -1)
-      rate      = defaults(network.value.rate, 0)
-      queues    = defaults(network.value.queues, 1)
+      firewall  = try(network.value.firewall, false)
+      link_down = try(network.value.link_down, false)
+      macaddr   = network.value.macaddress
+      tag       = try(network.value.tag, -1)
+      rate      = try(network.value.rate, 0)
+      queues    = try(network.value.queues, 1)
     }
   }
 
@@ -59,14 +59,14 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
       type      = disk.value.type
       storage   = disk.value.storage
       size      = disk.value.size
-      format    = defaults(disk.value.format, "raw")
-      cache     = defaults(disk.value.cache, "none")
-      backup    = defaults(disk.value.backup, 0)
-      iothread  = defaults(disk.value.iothread, 0)
-      replicate = defaults(disk.value.replicate, 0)
-      ssd       = defaults(disk.value.ssd, 0)
-      mbps      = defaults(disk.value.mbps, 0)
-      media     = defaults(disk.value.media, "disk")
+      format    = try(disk.value.format, "raw")
+      cache     = try(disk.value.cache, "none")
+      backup    = try(disk.value.backup, 0)
+      iothread  = try(disk.value.iothread, 0)
+      replicate = try(disk.value.replicate, 0)
+      ssd       = try(disk.value.ssd, 0)
+      mbps      = try(disk.value.mbps, 0)
+      media     = try(disk.value.media, "disk")
     }
   }
 

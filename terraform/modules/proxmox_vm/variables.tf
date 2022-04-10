@@ -3,7 +3,7 @@ variable "vm" {
 
     desc        = optional(string)
     onboot      = optional(bool)
-    agent       = optional(bool)
+    agent       = optional(number)
     target_node = string
     boot        = optional(string)
     pxe         = optional(bool)
@@ -15,17 +15,18 @@ variable "vm" {
     memory      = optional(number)
     pool        = optional(string)
     init = optional(object({
-      os_type      = optional(string)
-      user         = optional(string)
-      password     = optional(string)
-      searchdomain = optional(string)
-      nameserver   = optional(string)
-      ipconfig0    = optional(string)
-      ipconfig1    = optional(string)
-      ipconfig2    = optional(string)
-      ipconfig3    = optional(string)
-      ipconfig4    = optional(string)
-      ipconfig5    = optional(string)
+      os_type          = optional(string)
+      user             = optional(string)
+      password         = optional(string)
+      searchdomain     = optional(string)
+      nameserver       = optional(string)
+      ipconfig0        = optional(string)
+      ipconfig1        = optional(string)
+      ipconfig2        = optional(string)
+      ipconfig3        = optional(string)
+      ipconfig4        = optional(string)
+      ipconfig5        = optional(string)
+      automatic_reboot = optional(bool)
     }))
 
     network = list(object({
@@ -39,7 +40,7 @@ variable "vm" {
       queues     = optional(number)
     }))
 
-    disk = optional(list(object({
+    disk = list(object({
       type      = string
       storage   = string
       size      = string
@@ -51,7 +52,7 @@ variable "vm" {
       ssd       = optional(number)
       mbps      = optional(number)
       media     = optional(string)
-    })))
+    }))
   }))
 }
 

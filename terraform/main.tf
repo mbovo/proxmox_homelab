@@ -18,8 +18,17 @@ module "vm_test" {
         # where XX is the latest octect of a ipv4 address
         # This mapping is made automagically by an external DHCP server
         # so aa:aa:aa:aa:aa:fe  will map to 10.20.20.254 in my case
-        macaddress = "aa:aa:aa:aa:aa:60"
+        #macaddress = "aa:aa:aa:aa:aa:60"
       }]
+      disk = []
+      init = {
+        os_type      = "cloud-init"
+        user         = "root"
+        password     = "password"
+        ipconfig0    = "ip=10.20.20.59/24,gw=10.20.20.10"
+        nameserver   = "10.20.20.10"
+        searchdomain = "i.zroot.org"
+      }
     }
   }
 }
