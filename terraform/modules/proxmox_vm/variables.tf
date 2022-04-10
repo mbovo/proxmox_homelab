@@ -1,6 +1,7 @@
 variable "vm" {
   type = map(object({
 
+    vmid        = optional(number)
     desc        = optional(string)
     onboot      = optional(bool)
     agent       = optional(number)

@@ -1,4 +1,4 @@
-module "vm_test" {
+module "vm_pixie" {
   source = "./modules/proxmox_vm"
 
   proxmox_debug      = true
@@ -7,6 +7,7 @@ module "vm_test" {
 
   vm = {
     "pixie" = {
+      vmid        = 500
       target_node = "cube"
       template    = "archtemplate"
       full_clone  = true
@@ -19,7 +20,7 @@ module "vm_test" {
       disk = [{
         type    = "scsi"
         storage = "local-btrfs"
-        size    = "8G"
+        size    = "32G"
       }]
       init = {
         os_type      = "cloud-init"
@@ -32,4 +33,14 @@ module "vm_test" {
       }
     }
   }
+}
+
+resource "null_resource" "ansible_pixie" {
+  provisioner "local-exec" {
+
+    working_dir = "../ansible/"
+    command     = "sleep 120; ansible-playbook -i inventory ./pixie.yaml"
+  }
+  depends_on = [module.vm_pixie]
+
 }

@@ -3,6 +3,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   for_each = var.vm
   name     = each.key
   desc     = each.value.desc
+  vmid     = try(each.value.vmid, 0)
   onboot   = try(each.value.onboot, true)
 
   agent       = try(each.value.agent, 0)

@@ -1,0 +1,17 @@
+---
+- name: "Prepare pixie server"
+  hosts: pixie
+  gather_facts: yes
+  become: true
+  tasks:
+    - name: "Install go language"
+      ansible.builtin.package:
+        name: go
+        state: latest
+    # - name: "Install pixiecore"
+    #   ansible.builtin.shell: go install go.universe.tf/netboot/cmd/pixiecore@latest
+    - name: "Move pixiecore to /usr/bin"
+      ansible.builtin.copy:
+        remote_src: true
+        src: /home/arch/go/bin/pixiecore
+        dest: /usr/bin/pixiecore
