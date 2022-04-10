@@ -8,7 +8,7 @@ module "vm_test" {
   vm = {
     "test" = {
       target_node = "cube"
-      template    = "kubetemplate"
+      template    = "archtemplate"
       full_clone  = true
       network = [{
         bridge   = "vmbr1"
@@ -23,11 +23,12 @@ module "vm_test" {
       disk = []
       init = {
         os_type      = "cloud-init"
-        user         = "root"
-        password     = "password"
+        user         = "arch"
+        password     = "arch"
         ipconfig0    = "ip=10.20.20.59/24,gw=10.20.20.10"
         nameserver   = "10.20.20.10"
         searchdomain = "i.zroot.org"
+        sshkeys      = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3kal9Z3mE2LLvVVKNCVpmpK0VECKP4P6y+R7qNgbEvKxeWiUs/Cayd2luDXF/r4k8QzqmvwNcTm8DJsrOyq5XKGSxXPcddbg8zXdo6yic6OmqvzNY5S3DtFE+VFJPOqZophlgKjI+11DwwIjtu4m5gh3sIwP9XEU3feidrqTNZBCEAfncj4NJ6frxRKG+OdFw7NqnQii6SIrJASPHQP/wihT0yqUSc9YlXc87SgbQm6JNf3PWescKEmIlIzK6Uw+J+iL91XRePL5xnVhSPPxpJ0evmAjKJJ8LqiRd3uSvGAJ54BDXa+gogmebpRg/M82on1fyHziN6VYHxO/joroh45rkqERw5LebOiuz0rM2gKWr56HM67Dzj9cOM6uZHE5Ej3W/TkkS2d5xyLV8m+Ou64WcAXxrwBic3zy+4L4zqkqs6qLyijPeLrF+bGdBogddtH9SMjg0wG+mqADUkzLqQBX1kWB8uBevzYyS8DtYzhNqInTyP3678sNg+gET9G0= manuel.bovo@mbkp.i.zroot.org"
       }
     }
   }

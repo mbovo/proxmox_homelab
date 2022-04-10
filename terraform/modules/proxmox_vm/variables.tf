@@ -27,6 +27,7 @@ variable "vm" {
       ipconfig4        = optional(string)
       ipconfig5        = optional(string)
       automatic_reboot = optional(bool)
+      sshkeys          = optional(string)
     }))
 
     network = list(object({

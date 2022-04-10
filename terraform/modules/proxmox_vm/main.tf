@@ -36,6 +36,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   ipconfig4    = each.value.init.ipconfig4
   ipconfig5    = each.value.init.ipconfig5
 
+  sshkeys          = each.value.init.sshkeys
   automatic_reboot = try(each.value.init.automatic_reboot, false)
 
   dynamic "network" {
