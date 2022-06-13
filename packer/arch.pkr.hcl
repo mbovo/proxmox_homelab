@@ -26,12 +26,12 @@ packer {
 
 source "proxmox" "arch" {
 
-  proxmox_url              = "https://cube.i.zroot.org:8006/api2/json"
+  proxmox_url              = "https://p1.i.zroot.org:8006/api2/json"
   insecure_skip_tls_verify = true
   username                 = var.username
   token                    = var.token
-  node                     = "cube"
-  iso_file                 = "local-btrfs:iso/archlinux-2022.03.1-x86_64.iso"
+  node                     = "p1"
+  iso_file                 = "shared:iso/archlinux-2022.06.01-x86_64.iso"
 
   cores  = 2
   memory = 4096
@@ -44,7 +44,6 @@ source "proxmox" "arch" {
   ssh_password = "pi"
 
   cloud_init              = true
-  cloud_init_storage_pool = "local-btrfs"
 
   network_adapters {
     model    = "virtio"
@@ -55,9 +54,9 @@ source "proxmox" "arch" {
   disks {
     type              = "scsi"
     disk_size         = "32G"
-    storage_pool      = "local-btrfs"
+    storage_pool      = "default"
     format            = "raw"
-    storage_pool_type = "btrfs"
+    storage_pool_type = "cephfs"
   }
 
   boot_command = [

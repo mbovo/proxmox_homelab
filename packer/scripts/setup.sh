@@ -43,7 +43,10 @@ cat <<EOF > config.json
         "sudo",
         "cloud-init",
         "cloud-guest-utils",
-        "qemu-guest-agent"
+        "qemu-guest-agent",
+        "kubectl",
+        "kubelet"
+        "kubeadm"
     ],
     "services": [
       "crio",
