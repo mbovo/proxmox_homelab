@@ -44,6 +44,7 @@ source "proxmox" "arch" {
   ssh_password = "pi"
 
   cloud_init              = true
+  cloud_init_storage_pool = "default"
 
   network_adapters {
     model    = "virtio"

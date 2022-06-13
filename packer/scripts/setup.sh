@@ -1,6 +1,8 @@
 #!/bin/bash
 
 echo 'Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+echo 'Server = https://archmirror.it/repos/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
+
 
 pacman -Sy
 pacman -S --noconfirm git python-pip
@@ -43,10 +45,7 @@ cat <<EOF > config.json
         "sudo",
         "cloud-init",
         "cloud-guest-utils",
-        "qemu-guest-agent",
-        "kubectl",
-        "kubelet"
-        "kubeadm"
+        "qemu-guest-agent"
     ],
     "services": [
       "crio",
