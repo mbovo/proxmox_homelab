@@ -26,12 +26,12 @@ packer {
 
 source "proxmox" "arch" {
 
-  proxmox_url              = "https://p1.i.zroot.org:8006/api2/json"
+  proxmox_url              = "https://p3.i.zroot.org:8006/api2/json"
   insecure_skip_tls_verify = true
   username                 = var.username
   token                    = var.token
-  node                     = "p1"
-  iso_file                 = "shared:iso/archlinux-2022.06.01-x86_64.iso"
+  node                     = "p3"
+  iso_file                 = "local:iso/archlinux-2023.02.01-x86_64.iso"
 
   cores  = 2
   memory = 4096
@@ -44,20 +44,21 @@ source "proxmox" "arch" {
   ssh_password = "pi"
 
   cloud_init              = true
-  cloud_init_storage_pool = "default"
+  cloud_init_storage_pool = "data"
 
   network_adapters {
     model    = "virtio"
     bridge   = "vmbr1"
     firewall = true
+    vlan_tag = 1212
   }
 
   disks {
     type              = "scsi"
     disk_size         = "32G"
-    storage_pool      = "default"
+    storage_pool      = "data"
     format            = "raw"
-    storage_pool_type = "cephfs"
+    storage_pool_type = "lvm-thin"
   }
 
   boot_command = [
