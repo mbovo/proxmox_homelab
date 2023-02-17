@@ -5,7 +5,7 @@ echo 'Server = https://archmirror.it/repos/archlinux/$repo/os/$arch' >> /etc/pac
 
 
 pacman -Sy
-pacman -S --noconfirm git python-pip
+pacman -S --noconfirm git python3 python-pip python-setuptools
 pip uninstall -y archinstall
 git clone https://github.com/archlinux/archinstall
 cd archinstall
@@ -36,7 +36,7 @@ cat <<EOF > config.json
     "ntp": true,
     "packages": [
         "crictl",
-        "cri-o",
+        "containerd",
         "cni-plugins",
         "openssh",
         "wget",
@@ -48,7 +48,7 @@ cat <<EOF > config.json
         "qemu-guest-agent"
     ],
     "services": [
-      "crio",
+      "containerd",
       "sshd",
       "cloud-init-local",
       "cloud-init",
