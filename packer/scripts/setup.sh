@@ -36,8 +36,9 @@ cat <<EOF > config.json
     "ntp": true,
     "packages": [
         "crictl",
-        "containerd",
+        "cri-o",
         "cni-plugins",
+        "runc",
         "openssh",
         "wget",
         "nano",
@@ -48,7 +49,7 @@ cat <<EOF > config.json
         "qemu-guest-agent"
     ],
     "services": [
-      "containerd",
+      "crio",
       "sshd",
       "cloud-init-local",
       "cloud-init",
