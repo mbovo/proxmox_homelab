@@ -135,6 +135,7 @@ module "vm_kubecp" {
       network = [{
         bridge   = "vmbr1"
         model    = "virtio"
+        tag      = "1212"
         firewall = false
       }]
       disk = [{
@@ -164,6 +165,7 @@ module "vm_kubecp" {
       network = [{
         bridge   = "vmbr1"
         model    = "virtio"
+        tag      = "1212"
         firewall = false
       }]
       disk = [{
@@ -193,6 +195,7 @@ module "vm_kubecp" {
       network = [{
         bridge   = "vmbr1"
         model    = "virtio"
+        tag      = "1212"
         firewall = false
       }]
       disk = [{
