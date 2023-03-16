@@ -1,2 +1,2 @@
-[pixie]
-10.20.20.59 ansible_user=arch
+[control-plane]
+10.12.12.242 ansible_user=arch

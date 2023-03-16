@@ -4,6 +4,17 @@
   gather_facts: true
   become: true
   tasks:
+
+    - name: "Ensure packaged are installed"
+      ansible.builtin.package:
+        name:
+          - kubeadm
+          - kubelet
+          - cri-o
+          - runc
+          - cni-plugins
+        state: latest
+
     - name: "Reconfigure cri-o"
       ansible.builtin.file:
         path: /etc/crio/crio.conf.d
@@ -14,14 +25,16 @@
     - name: "Fix crio.network"
       ansible.builtin.lineinfile:
         path: /etc/crio/crio.conf
-        insertafter: "[crio.network]"
-        line: 'plugin_dirs = [\n"/opt/cni/bin/",\n]'
+        insertafter: "crio.network"
+        line: 'plugin_dirs = ["/opt/cni/bin/","/usr/lib/cni/",]'
+        state: present
       register: fix_crio_network
 
     - name: "Restart crio"
       ansible.builtin.systemd:
         name: crio
         state: restarted
+        enabled: yes
       when: reconfigure_crio.changed or fix_crio_network.changed
 
     - name: "Download cilium-cli"
@@ -35,6 +48,11 @@
         dest: /usr/local/bin
         remote_src: true
 
+    - name: "Enable kubelet service"
+      ansible.builtin.systemd:
+        name: kubelet
+        state: stopped
+        enabled: yes
 
     - name: "Kubeadm init"
       ansible.builtin.shell: |
