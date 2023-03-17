@@ -19,7 +19,7 @@
 #       }]
 #       disk = [{
 #         type    = "scsi"
-#         storage = "default"
+#         storage = "data"
 #         size    = "32G"
 #       }]
 #       init = {
@@ -121,17 +121,17 @@ module "vm_kubecp" {
 
   proxmox_debug      = true
   proxmox_log_enable = true
-  proxmox_api_url    = "https://p1.i.zroot.org:8006/api2/json"
+  proxmox_api_url    = "https://p3.i.zroot.org:8006/api2/json"
 
   vm = {
     "m0" = {
       vmid        = 500
-      target_node = "p1"
+      target_node = "p3"
       template    = "kubetemplate"
       full_clone  = true
       onboot      = true
       cores       = 2
-      memory      = 1024
+      memory      = 2048
       network = [{
         bridge   = "vmbr1"
         model    = "virtio"
@@ -140,15 +140,15 @@ module "vm_kubecp" {
       }]
       disk = [{
         type    = "scsi"
-        storage = "default"
+        storage = "data"
         size    = "32G"
       }]
       init = {
         os_type          = "cloud-init"
         user             = "arch"
         password         = "arch"
-        ipconfig0        = "ip=10.20.20.55/24,gw=10.20.20.10"
-        nameserver       = "10.20.20.10"
+        ipconfig0        = "ip=10.12.12.80/24,gw=10.12.12.10"
+        nameserver       = "10.12.12.10"
         searchdomain     = "i.zroot.org"
         sshkeys          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3kal9Z3mE2LLvVVKNCVpmpK0VECKP4P6y+R7qNgbEvKxeWiUs/Cayd2luDXF/r4k8QzqmvwNcTm8DJsrOyq5XKGSxXPcddbg8zXdo6yic6OmqvzNY5S3DtFE+VFJPOqZophlgKjI+11DwwIjtu4m5gh3sIwP9XEU3feidrqTNZBCEAfncj4NJ6frxRKG+OdFw7NqnQii6SIrJASPHQP/wihT0yqUSc9YlXc87SgbQm6JNf3PWescKEmIlIzK6Uw+J+iL91XRePL5xnVhSPPxpJ0evmAjKJJ8LqiRd3uSvGAJ54BDXa+gogmebpRg/M82on1fyHziN6VYHxO/joroh45rkqERw5LebOiuz0rM2gKWr56HM67Dzj9cOM6uZHE5Ej3W/TkkS2d5xyLV8m+Ou64WcAXxrwBic3zy+4L4zqkqs6qLyijPeLrF+bGdBogddtH9SMjg0wG+mqADUkzLqQBX1kWB8uBevzYyS8DtYzhNqInTyP3678sNg+gET9G0= manuel.bovo@mbkp.i.zroot.org"
         automatic_reboot = true
@@ -156,7 +156,7 @@ module "vm_kubecp" {
     },
     "m1" = {
       vmid        = 501
-      target_node = "p1"
+      target_node = "p3"
       template    = "kubetemplate"
       full_clone  = true
       onboot      = true
@@ -170,15 +170,15 @@ module "vm_kubecp" {
       }]
       disk = [{
         type    = "scsi"
-        storage = "default"
+        storage = "data"
         size    = "32G"
       }]
       init = {
         os_type          = "cloud-init"
         user             = "arch"
         password         = "arch"
-        ipconfig0        = "ip=10.20.20.51/24,gw=10.20.20.10"
-        nameserver       = "10.20.20.10"
+        ipconfig0        = "ip=10.12.12.51/24,gw=10.12.12.10"
+        nameserver       = "10.12.12.10"
         searchdomain     = "i.zroot.org"
         sshkeys          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3kal9Z3mE2LLvVVKNCVpmpK0VECKP4P6y+R7qNgbEvKxeWiUs/Cayd2luDXF/r4k8QzqmvwNcTm8DJsrOyq5XKGSxXPcddbg8zXdo6yic6OmqvzNY5S3DtFE+VFJPOqZophlgKjI+11DwwIjtu4m5gh3sIwP9XEU3feidrqTNZBCEAfncj4NJ6frxRKG+OdFw7NqnQii6SIrJASPHQP/wihT0yqUSc9YlXc87SgbQm6JNf3PWescKEmIlIzK6Uw+J+iL91XRePL5xnVhSPPxpJ0evmAjKJJ8LqiRd3uSvGAJ54BDXa+gogmebpRg/M82on1fyHziN6VYHxO/joroh45rkqERw5LebOiuz0rM2gKWr56HM67Dzj9cOM6uZHE5Ej3W/TkkS2d5xyLV8m+Ou64WcAXxrwBic3zy+4L4zqkqs6qLyijPeLrF+bGdBogddtH9SMjg0wG+mqADUkzLqQBX1kWB8uBevzYyS8DtYzhNqInTyP3678sNg+gET9G0= manuel.bovo@mbkp.i.zroot.org"
         automatic_reboot = true
@@ -186,7 +186,7 @@ module "vm_kubecp" {
     },
     "m2" = {
       vmid        = 502
-      target_node = "p2"
+      target_node = "p3"
       template    = "kubetemplate"
       full_clone  = true
       onboot      = true
@@ -200,15 +200,15 @@ module "vm_kubecp" {
       }]
       disk = [{
         type    = "scsi"
-        storage = "default"
+        storage = "data"
         size    = "32G"
       }]
       init = {
         os_type          = "cloud-init"
         user             = "arch"
         password         = "arch"
-        ipconfig0        = "ip=10.20.20.52/24,gw=10.20.20.10"
-        nameserver       = "10.20.20.10"
+        ipconfig0        = "ip=10.12.12.52/24,gw=10.12.12.10"
+        nameserver       = "10.12.12.10"
         searchdomain     = "i.zroot.org"
         sshkeys          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3kal9Z3mE2LLvVVKNCVpmpK0VECKP4P6y+R7qNgbEvKxeWiUs/Cayd2luDXF/r4k8QzqmvwNcTm8DJsrOyq5XKGSxXPcddbg8zXdo6yic6OmqvzNY5S3DtFE+VFJPOqZophlgKjI+11DwwIjtu4m5gh3sIwP9XEU3feidrqTNZBCEAfncj4NJ6frxRKG+OdFw7NqnQii6SIrJASPHQP/wihT0yqUSc9YlXc87SgbQm6JNf3PWescKEmIlIzK6Uw+J+iL91XRePL5xnVhSPPxpJ0evmAjKJJ8LqiRd3uSvGAJ54BDXa+gogmebpRg/M82on1fyHziN6VYHxO/joroh45rkqERw5LebOiuz0rM2gKWr56HM67Dzj9cOM6uZHE5Ej3W/TkkS2d5xyLV8m+Ou64WcAXxrwBic3zy+4L4zqkqs6qLyijPeLrF+bGdBogddtH9SMjg0wG+mqADUkzLqQBX1kWB8uBevzYyS8DtYzhNqInTyP3678sNg+gET9G0= manuel.bovo@mbkp.i.zroot.org"
         automatic_reboot = true
@@ -229,15 +229,15 @@ module "vm_kubecp" {
       }]
       disk = [{
         type    = "scsi"
-        storage = "default"
+        storage = "data"
         size    = "32G"
       }]
       init = {
         os_type          = "cloud-init"
         user             = "arch"
         password         = "arch"
-        ipconfig0        = "ip=10.20.20.53/24,gw=10.20.20.10"
-        nameserver       = "10.20.20.10"
+        ipconfig0        = "ip=10.12.12.53/24,gw=10.12.12.10"
+        nameserver       = "10.12.12.10"
         searchdomain     = "i.zroot.org"
         sshkeys          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3kal9Z3mE2LLvVVKNCVpmpK0VECKP4P6y+R7qNgbEvKxeWiUs/Cayd2luDXF/r4k8QzqmvwNcTm8DJsrOyq5XKGSxXPcddbg8zXdo6yic6OmqvzNY5S3DtFE+VFJPOqZophlgKjI+11DwwIjtu4m5gh3sIwP9XEU3feidrqTNZBCEAfncj4NJ6frxRKG+OdFw7NqnQii6SIrJASPHQP/wihT0yqUSc9YlXc87SgbQm6JNf3PWescKEmIlIzK6Uw+J+iL91XRePL5xnVhSPPxpJ0evmAjKJJ8LqiRd3uSvGAJ54BDXa+gogmebpRg/M82on1fyHziN6VYHxO/joroh45rkqERw5LebOiuz0rM2gKWr56HM67Dzj9cOM6uZHE5Ej3W/TkkS2d5xyLV8m+Ou64WcAXxrwBic3zy+4L4zqkqs6qLyijPeLrF+bGdBogddtH9SMjg0wG+mqADUkzLqQBX1kWB8uBevzYyS8DtYzhNqInTyP3678sNg+gET9G0= manuel.bovo@mbkp.i.zroot.org"
         automatic_reboot = true
