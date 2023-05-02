@@ -1,2 +1,13 @@
-[control-plane]
-10.12.12.242 ansible_user=arch
+[loadbalancer]
+10.12.12.80 ansible_user=arch
+
+[cp-one]
+10.12.12.81 ansible_user=arch
+
+[cp-others]
+10.12.12.82 ansible_user=arch
+10.12.12.83 ansible_user=arch
+
+[control-plane:children]
+cp-one
+cp-others

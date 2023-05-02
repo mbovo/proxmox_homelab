@@ -1,6 +1,6 @@
 ---
 - name: "Prepare the first control-plane node"
-  hosts: control-plane
+  hosts: cp-one
   gather_facts: true
   become: true
   tasks:

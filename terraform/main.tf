@@ -128,7 +128,7 @@ module "vm_kubecp" {
       vmid        = 500
       target_node = "p3"
       template    = "kubetemplate"
-      full_clone  = true
+      full_clone  = false
       onboot      = true
       cores       = 2
       memory      = 2048
@@ -158,7 +158,7 @@ module "vm_kubecp" {
       vmid        = 501
       target_node = "p3"
       template    = "kubetemplate"
-      full_clone  = true
+      full_clone  = false
       onboot      = true
       cores       = 4
       memory      = 8192
@@ -171,7 +171,7 @@ module "vm_kubecp" {
       disk = [{
         type    = "scsi"
         storage = "data"
-        size    = "32G"
+        size    = "120G"
       }]
       init = {
         os_type          = "cloud-init"
@@ -188,7 +188,7 @@ module "vm_kubecp" {
       vmid        = 502
       target_node = "p3"
       template    = "kubetemplate"
-      full_clone  = true
+      full_clone  = false
       onboot      = true
       cores       = 4
       memory      = 8192
@@ -201,7 +201,7 @@ module "vm_kubecp" {
       disk = [{
         type    = "scsi"
         storage = "data"
-        size    = "32G"
+        size    = "120G"
       }]
       init = {
         os_type          = "cloud-init"
@@ -218,19 +218,20 @@ module "vm_kubecp" {
       vmid        = 503
       target_node = "p3"
       template    = "kubetemplate"
-      full_clone  = true
+      full_clone  = false
       onboot      = true
       cores       = 4
       memory      = 8192
       network = [{
         bridge   = "vmbr1"
         model    = "virtio"
+        tag      = "1212"
         firewall = false
       }]
       disk = [{
         type    = "scsi"
         storage = "data"
-        size    = "32G"
+        size    = "120G"
       }]
       init = {
         os_type          = "cloud-init"
