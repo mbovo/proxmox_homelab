@@ -21,7 +21,37 @@ Current configuration is:
 - p2 (test) Activated on demand to test new features (wake on-lan from github self-hosted runner)
 - p3 (prod) Always on, hosting all the services
 
+### Infrastructure Levels
+
+I decided to split the infrastructure into 2 different levels:
+
+- **low-level**: contains all the resources that are needed to run the cluster itself (VMs, networks, storage, etc)
+- **high-level**: contains all the resources that are needed to run the services (apps, databases, etc)
+
+#### Low-level
+
+Low level infrastructure in this repo is managed by [terraform](https://www.terraform.io) [packer](https://www.packer.io) and [ansible](https://www.ansible.com).
+
+In this directory you will find all the code needed to:
+
+- create the templates for the VMs
+- create the required VMs
+- configure the VMs with ansible (eg: kubernetes cluster with kubeadm and the like)
+
+#### High-level
+
+High level infrastructure in this repo is managed by [flux](https://fluxcd.io) and sometimes [helm](https://helm.sh) some others [kustomize](https://kustomize.io).
+
+In this directory you will find all the code needed to:
+
+- deploy the "infrastructure" apps needed by the cluster (eg: metallb, ingress controller, etc)
+- deploy the "services" apps
+
+You will find a `envs` subdirectory referencing each kubernetes cluster
+
 ## Requirements
+
+
 
 - [Taskfile](https://taskfile.dev)
 - [Hashicorp Packer](https://www.packer.io)

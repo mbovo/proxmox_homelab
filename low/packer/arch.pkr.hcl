@@ -74,7 +74,7 @@ build {
   sources = ["source.proxmox.arch"]
 
   provisioner "shell" {
-    script = "packer/scripts/setup.sh"
+    script = "low/packer/scripts/setup.sh"
   }
 
   # provisioner "shell" {
