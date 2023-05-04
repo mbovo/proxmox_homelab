@@ -28,13 +28,14 @@
   ansible.builtin.systemd:
     name: crio
     state: restarted
-    enabled: yes
+    enabled: true
   when: reconfigure_crio.changed or fix_crio_network.changed
 
 - name: "Download cilium-cli"
   ansible.builtin.get_url:
     url: https://github.com/cilium/cilium-cli/releases/download/v0.12.13/cilium-linux-amd64.tar.gz
     dest: /root/cilium-linux-amd64.tar.gz
+    mode: 0755
 
 - name: "Extract cilium-cli"
   ansible.builtin.unarchive:
@@ -46,4 +47,4 @@
   ansible.builtin.systemd:
     name: kubelet
     state: stopped
-    enabled: yes
+    enabled: true

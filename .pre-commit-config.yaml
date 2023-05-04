@@ -9,6 +9,11 @@ repos:
       - id: detect-private-key
       - id: check-yaml
         args: ["-m"]
+  # - repo: https://github.com/ansible/ansible-lint/
+  #   rev: v6.15.0
+  #   hooks:
+  #     - id: ansible-lint
+  #       args: ["-v"]
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.50.0
     hooks:
@@ -18,5 +23,5 @@ repos:
   - repo: https://github.com/cisagov/pre-commit-packer
     rev: v0.0.2
     hooks:
-      #- id: packer_fmt
+      # - id: packer_fmt
       - id: packer_validate

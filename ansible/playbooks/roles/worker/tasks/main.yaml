@@ -1,0 +1,17 @@
+---
+
+- name: "Create new join token"
+  delegate_to: cp-one
+  ansible.builtin.shell: |
+    kubeadm token create --print-join-command --skip-headers
+  register:
+    join_command
+  when: inventory_hostname != "cp-one"
+  run_once: true
+  tags: join
+
+- name: "Join other control planes"
+  ansible.builtin.shell: |
+    {{ join_command.stdout }}
+  when: inventory_hostname != "cp-one"
+  tags: join

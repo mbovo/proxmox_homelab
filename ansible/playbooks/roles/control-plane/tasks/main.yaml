@@ -18,6 +18,7 @@
   register:
     join_command
   when: inventory_hostname != "cp-one"
+  run_once: true
   tags: join
 
 - name: "Join other control planes"

@@ -6,7 +6,7 @@
   become: true
   roles:
     - role: loadbalancer
-  
+
 - name: "First control plane"
   hosts: cp-one
   gather_facts: true
@@ -26,7 +26,7 @@
     - role: control-plane
   tags:
     - join
-  
+
 - name: "Worker nodes"
   hosts: workers
   gather_facts: true
