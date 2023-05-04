@@ -38,6 +38,8 @@ In this directory you will find all the code needed to:
 - create the required VMs
 - configure the VMs with ansible (eg: kubernetes cluster with kubeadm and the like)
 
+The terraform state is stored on terraform cloud free plan.
+
 #### High-level
 
 High level infrastructure in this repo is managed by [flux](https://fluxcd.io) and sometimes [helm](https://helm.sh) some others [kustomize](https://kustomize.io).

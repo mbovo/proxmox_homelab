@@ -116,6 +116,14 @@
 # }
 
 
+terraform {
+  cloud {
+    organization = "zroot"
+    workspaces { name = "proxmox_templates" }
+  }
+  required_version = ">= 1.4.0"
+}
+
 module "vm_kubecp" {
   source = "./modules/proxmox_vm"
 
