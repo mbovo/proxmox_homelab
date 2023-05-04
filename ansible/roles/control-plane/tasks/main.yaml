@@ -1,0 +1,27 @@
+---
+
+- name: "Kubeadm init"
+  ansible.builtin.shell: |
+    kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address={{ ansible_default_ipv4.address }} --upload-certs --cri-socket=unix:///var/run/crio/crio.sock --apiserver-cert-extra-sans={{ ansible_default_ipv4.address }} --control-plane-endpoint={{ ansible_default_ipv4.address }} --skip-token-print --node-name={{ inventory_hostname }}
+  tags: init
+
+- name: "Install cilium"
+  ansible.builtin.shell: |
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+    cilium install --ipam=kubernetes endpointRoutes.enabled=true
+  tags: init
+
+- name: "Create new join token"
+  delegate_to: cp-one
+  ansible.builtin.shell: |
+    kubeadm token create --print-join-command --skip-headers
+  register:
+    join_command
+  when: inventory_hostname != "cp-one"
+  tags: join
+
+- name: "Join other control planes"
+  ansible.builtin.shell: |
+    {{ join_command.stdout }}
+  when: inventory_hostname != "cp-one"
+  tags: join

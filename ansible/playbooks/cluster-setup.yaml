@@ -1,0 +1,38 @@
+---
+
+- name: "Deploy LoadBalancer"
+  hosts: lb
+  gather_facts: true
+  become: true
+  roles:
+    - role: loadbalancer
+  
+- name: "First control plane"
+  hosts: cp-one
+  gather_facts: true
+  become: true
+  roles:
+    - role: prepare
+    - role: control-plane
+  tags:
+    - init
+
+- name: "Other control planes"
+  hosts: cp-others
+  gather_facts: true
+  become: true
+  roles:
+    - role: prepare
+    - role: control-plane
+  tags:
+    - join
+  
+- name: "Worker nodes"
+  hosts: workers
+  gather_facts: true
+  become: true
+  roles:
+    - role: prepare
+    - role: worker
+  tags:
+    - join
