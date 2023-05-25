@@ -1,0 +1,84 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+    name: acme-digitalocean
+    namespace: cert-manager
+spec:
+    acme:
+        email: ENC[AES256_GCM,data:f+SVuFIET4Xv4P5/wA==,iv:sSbH88PU2Yqubhkwk9uD0n5eFdvKHai5Qpmc/+ct+5g=,tag:NbDsej09EiaiZWDVHccIpw==,type:str]
+        server: ENC[AES256_GCM,data:fVW0PxKmonGPqQwuWeLFTfPCVccafzNFH1sTPS6Z18mC40VqOKewI2WjJM7QGg==,iv:c8ajK9ctN51k7o6GfH/d5RGbQCflDHeqEyxFth06x4U=,tag:9qyrySgu/GHBuCM2QPGXcQ==,type:str]
+        solvers:
+            - dns01:
+                digitalocean:
+                    tokenSecretRef:
+                        name: digitalocean-dns
+                        key: access-token
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-07T21:54:17Z"
+    mac: ENC[AES256_GCM,data:TaelDm5FZr5u7YNRdCWp4zI8eJMYsTOKkbForwbd6ajykjr+eDWPCHfknqXS+WYa0Lu49dZuFdw6PNKaydPN+aaFenZprdg5vQlMf94tc+MrVH/NhYwpmm6xn+eijewh6XQpECfTPfkuw8ALDzJXzm2+CI2zx29fg4qNIkbd7dY=,iv:/kHwcn7JSJ4OTwe3UXC1FeqjueKsBWKxM0ia7QkQzxw=,tag:yXF8/RLPmx/XfzVMFbsT7g==,type:str]
+    pgp:
+        - created_at: "2023-05-07T21:54:14Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3bGu4MnJmFfARAAkVYplYLY7tm382wv7bYhyZQC8fXiirngF4zXVagAIZ+G
+            B5JqHW8ND3W2SolAAd/2e50d13D//771CDow3a0q+j9dzenCX08EsFWlStUiA9B8
+            CXTmuO8JGWlypR1QgHOu8VZN31q96jlYFj+rRdBVHKn0sNHuF3v4OR5OTNdKG3aa
+            JxcC2ZTyMVMfJxGIqhxcuszODydrwldAWBuZYzHFdYGFQfk90KV5SJ6azPLv4E/Z
+            O0hkEmKmJEDHxQaAvstaQA6jQFguaYzwh3Bjb868r5cPOPbK2Hfdkn4xd/qVfyVn
+            HjUlfWghVsGareKaKYjWm5fBkb9gdmDWExX4xImaeie/j15hEzkVWKMm0J1fRNt+
+            1h75jrCO5L2AeiKsBhE9cJeo+NLAddEPGuNBNICYkDriOWEt5iqvoEhkVbF70/JW
+            Gkl7Uk04j+Phhh+Ymngfi+BATWiGZthyFCcogUvnu/B5UTGV3j80CBbhzYsHgQGj
+            LHjI77CgghNTcB1MoyutalbPcoeADKYE3OTXXIoIuNXjMGZDaH4tg5sZuOHiSAOP
+            TSSJbupgWjSykMLeE9pXtPSOyY28i9PQqO0XFautLysffXz2XDcBi86mh7zZbSmN
+            VQVieMhJpFlW6KfktQ0Ve8R7JkCmKuOpioN4Ac+UbNpFENx+zvmfioeq/SOTO6nS
+            XgEm4RPbOz2T+NTTbxTZHlqMjoJirmEXxP3/hyZ8H+EDgDf7RjrXxjSDJKn5wctD
+            w+BustIFZ6TcY4wjor1a45m3TuPgsqzxapAAur5sUWytcFbpDdCHWZVf9IljCwo=
+            =GrDo
+            -----END PGP MESSAGE-----
+          fp: 171CF9C1D45CB28C5ECA2964FCC4AEC805651FBB
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|server|configLogicalBackup)$
+    version: 3.7.3
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: digitalocean-dns
+data:
+    access-token: ENC[AES256_GCM,data:Sy2P/4KzSlnFzqxVxvRsv5gTq3Z8gsQ/yjRX2cVIuT04f1YJsKwv3Ouj5Rpo,iv:YI0WVhVuJNocBnIr4Zuf6496uKP5fiYMfxETKatJuF4=,tag:MQ1/mK2EB7r7UUctkRxE2A==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-07T21:54:17Z"
+    mac: ENC[AES256_GCM,data:TaelDm5FZr5u7YNRdCWp4zI8eJMYsTOKkbForwbd6ajykjr+eDWPCHfknqXS+WYa0Lu49dZuFdw6PNKaydPN+aaFenZprdg5vQlMf94tc+MrVH/NhYwpmm6xn+eijewh6XQpECfTPfkuw8ALDzJXzm2+CI2zx29fg4qNIkbd7dY=,iv:/kHwcn7JSJ4OTwe3UXC1FeqjueKsBWKxM0ia7QkQzxw=,tag:yXF8/RLPmx/XfzVMFbsT7g==,type:str]
+    pgp:
+        - created_at: "2023-05-07T21:54:14Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3bGu4MnJmFfARAAkVYplYLY7tm382wv7bYhyZQC8fXiirngF4zXVagAIZ+G
+            B5JqHW8ND3W2SolAAd/2e50d13D//771CDow3a0q+j9dzenCX08EsFWlStUiA9B8
+            CXTmuO8JGWlypR1QgHOu8VZN31q96jlYFj+rRdBVHKn0sNHuF3v4OR5OTNdKG3aa
+            JxcC2ZTyMVMfJxGIqhxcuszODydrwldAWBuZYzHFdYGFQfk90KV5SJ6azPLv4E/Z
+            O0hkEmKmJEDHxQaAvstaQA6jQFguaYzwh3Bjb868r5cPOPbK2Hfdkn4xd/qVfyVn
+            HjUlfWghVsGareKaKYjWm5fBkb9gdmDWExX4xImaeie/j15hEzkVWKMm0J1fRNt+
+            1h75jrCO5L2AeiKsBhE9cJeo+NLAddEPGuNBNICYkDriOWEt5iqvoEhkVbF70/JW
+            Gkl7Uk04j+Phhh+Ymngfi+BATWiGZthyFCcogUvnu/B5UTGV3j80CBbhzYsHgQGj
+            LHjI77CgghNTcB1MoyutalbPcoeADKYE3OTXXIoIuNXjMGZDaH4tg5sZuOHiSAOP
+            TSSJbupgWjSykMLeE9pXtPSOyY28i9PQqO0XFautLysffXz2XDcBi86mh7zZbSmN
+            VQVieMhJpFlW6KfktQ0Ve8R7JkCmKuOpioN4Ac+UbNpFENx+zvmfioeq/SOTO6nS
+            XgEm4RPbOz2T+NTTbxTZHlqMjoJirmEXxP3/hyZ8H+EDgDf7RjrXxjSDJKn5wctD
+            w+BustIFZ6TcY4wjor1a45m3TuPgsqzxapAAur5sUWytcFbpDdCHWZVf9IljCwo=
+            =GrDo
+            -----END PGP MESSAGE-----
+          fp: 171CF9C1D45CB28C5ECA2964FCC4AEC805651FBB
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|server|configLogicalBackup)$
+    version: 3.7.3

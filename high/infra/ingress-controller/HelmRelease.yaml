@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nginx-ingress
+  namespace: ingress
+spec:
+  interval: 10m
+  releaseName: nginx-ingress
+  chart:
+    spec:
+      chart: nginx-ingress
+      sourceRef:
+        kind: HelmRepository
+        name: nginx-ingress
+        namespace: flux-system
+      interval: 10m
+      version: "0.16.x"
+  values:
+    controller:
+      image:
+        repository: docker.io/nginx/nginx-ingress
+      kind: daemonset
+      enableSnippets: true
+      globalConfiguration:
+        create: true
+        spec:
+          listeners:
+          - name: taskd
+            port: 53589
+            protocol: TCP
+      appprotect:
+        enable: false
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      service:
+        create: false
+      hostNetwork: true
+    prometheus:
+      create: true
