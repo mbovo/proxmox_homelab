@@ -18,9 +18,9 @@ spec:
   install:
     createNamespace: true
     replace: true
-    CRDs: CreateReplace
+    crds: CreateReplace
   upgrade:
-    CRDs: CreateReplace
+    crds: CreateReplace
   values:
     installCRDs: true
     resources:
