@@ -46,7 +46,8 @@ spec:
           cpu: 100m
           memory: 256Mi
       service:
-        create: false
-      hostNetwork: true
+        create: true
+        type: LoadBalancer
+      hostNetwork: false
     prometheus:
       create: true
