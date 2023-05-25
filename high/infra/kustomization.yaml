@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - certmanager
 - ingress-controller
-- metalb
 - metric-server
