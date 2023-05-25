@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: nginx-ingress
-  namespace: ingress
+  namespace: flux-system
 spec:
   interval: 10m
   releaseName: nginx-ingress
@@ -16,6 +16,12 @@ spec:
         namespace: flux-system
       interval: 10m
       version: "0.16.x"
+  install:
+    createNamespace: true
+    replace: true
+    CRDs: CreateReplace
+  upgrade:
+    CRDs: CreateReplace
   values:
     controller:
       image:
