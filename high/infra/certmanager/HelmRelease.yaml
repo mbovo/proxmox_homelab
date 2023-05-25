@@ -30,4 +30,4 @@ spec:
     prometheus:
       enabled: true
       servicemonitor:
-        enabled: true
+        enabled: false #to be enabled after promethues, this is a strict dependency
