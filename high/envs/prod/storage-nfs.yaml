@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: metrics-server
+  name: storage-nfs
   namespace: flux-system
   labels:
     org.zroot.gitops: infra
