@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-stack
+  namespace: monitoring
+  labels:
+    org.zroot.gitops: infra
+spec:
+  upgrade:
+    crds: CreateReplace
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  interval: 10m
+  releaseName: prometheus
+  targetNamespace: monitoring
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "46.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 10m
+  values:
+    commonLabels:
+      org.zroot.gitops: prometheus
+    defaultRules:
+      rules:
+        alertmanager: false
+        kubeApiserverAvailability: false
+        kubeApiserverError: false
+        kubeApiserverSlos: false
+        network: true
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        etcd: false
+    grafana:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    prometheus-node-exporter:
+      extraHostVolumeMounts:
+        - name: text-file
+          hostPath: /var/lib/node_exporter
+          mountPath: /var/lib/node_exporter
+          readOnly: true
+          mountPropagation: HostToContainer
+      extraArgs:
+        - --collector.textfile.directory=/var/lib/node_exporter
+        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+        - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$<
+    prometheus:
+      prometheusSpec:
+        enableRemoteWriteReceiver: true
+        serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorNamespaceSelector:
+          matchLabels:
+            prometheus: scrape
+        ruleSelectorNilUsesHelmValues: false
+        ruleSelectorNamespaceSelector:
+          matchLabels:
+            prometheus: scrape
+        podMonitorSelectorNilUsesHelmValues: false
+        podMonitorNamespaceSelector:
+          matchLabels:
+            prometheus: scrape
+        probeSelectorNilUsesHelmValues: false
+        probeSelectorNamespaceSelector:
+          matchLabels:
+            prometheus: scrape
+        retention: 7d
+        # additionalScrapeConfigs:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: nfs-sc
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
