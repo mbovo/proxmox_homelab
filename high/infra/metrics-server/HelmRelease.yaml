@@ -2,11 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: metric-server
-  namespace: kube-system
+  name: metrics-server
+  namespace: flux-system
 spec:
   interval: 10m
   releaseName: metrics-server
+  targetNamespace: kube-system
   upgrade:
     crds: CreateReplace
   install:
