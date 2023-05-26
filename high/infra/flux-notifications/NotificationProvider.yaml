@@ -1,0 +1,42 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+    name: telegram-notification-provider
+    namespace: flux-system
+spec:
+    type: telegram
+    channel: ENC[AES256_GCM,data:05djNFm2kwcMNi0=,iv:v2ZtYJOU76mtvbCmOwv5vzpvbbN+VtkVy7/5oFZG7Zk=,tag:lq4LSrxh34pQwqFovEJHLQ==,type:str]
+    address: https://api.telegram.org
+    secretRef:
+        name: telegram-token
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-26T09:25:43Z"
+    mac: ENC[AES256_GCM,data:BFYoLqOyBb1nzYYaInRqJtYoEHgAvvYJrz9iq/Cmk9LxFNXPd8sNw18x+2KyxZusAriVC1ExVXxuAcKGGnHJaiwcCb3Gajq4inioZ1MzsLQaFhw+rUxGf4s/q1dfcCsbxmRFb1ODJGm6G67J5T8xVt5zr/8ObdOhLRnK4FM7SDI=,iv:MSc86E9Fi8KcKLDi8pBFr2P94ad04PIhjvYRMqkk3KQ=,tag:5QtV67SGAIFdf6THQk24Xw==,type:str]
+    pgp:
+        - created_at: "2023-05-26T09:25:43Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3bGu4MnJmFfAQ/7Bcn3hsJOCkVeWC2pYKc5RRiQd7XVmLBHekMeZMme5nB9
+            HbZpeLNEWTW6myiddFaxTOZ+rjqRxCd2e2tNQgPGwc+BDll9jgyZflHY4p+6MK37
+            2Csq4gpEgKLU3OQatcryqfBIRrONgo1VvK4HTah2I1H5bjQJVGl/gmEqJWYhIEf/
+            fm9xkEfwfTc4/C5BvCARXBNo1kzN1GXQz6HmrNl+C0KZbZF2TBRBbnpX7tnpSVzq
+            ijsNaZa2UcHXdUcXe4qeQ/e9SNe9n6fOdNVj+qAsITcDuO5oBnuMRZNCzQudfqIN
+            g33KQiS9a1NFBBsXmkfnlB78KQfOJU5wdzajAmXwSSgaQJhSSAZP2UqOtCqm0f6D
+            j5BLsm4MA3kJXQDs+gpG8+1qR5EMKmaXGoQ9mGzhnVLR48Wpc6KnZu7NYs1P/KsC
+            BnzcfkEdTajEbHsjdGXTE+hX51uiV/9khV8OEzJRVhhBzbKC5I8LlbHefw6P/bKp
+            XchsEy5Pbup80PvytR6T16wXLbbSGqWqTHp5E41R4fQS/n8Z5/jOyOzAUcWupLI8
+            yDxx3L+YcuXr0K2SkeeGZHoG7jN4MbeoeF62Y4JXSAqJodryVhXxUQQ8vz8kooFC
+            MFFwPIQLBzb0OEa+iCe01DfRd91RpvCNRz2xwrRr82gpecLwc5AMF4JsbBjP3GXS
+            XAHF0NpBNrCaXzy/k8ydALOm6w1tCvY2glC0MGKe7Xac8uMoKIu3F8JuVTFzCaK0
+            nh7HXETwoPvyvEgzo2qQsGud7acUreiS08xAQ0O16N3QQUBnRxN2LXGhbSM1
+            =sfnd
+            -----END PGP MESSAGE-----
+          fp: 171CF9C1D45CB28C5ECA2964FCC4AEC805651FBB
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|addresses|server|configLogicalBackup|channel)$
+    version: 3.7.3

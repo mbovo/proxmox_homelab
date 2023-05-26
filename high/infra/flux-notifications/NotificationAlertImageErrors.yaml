@@ -1,0 +1,13 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: flux-system-image-all
+  namespace: flux-system
+spec:
+  providerRef:
+    name: telegram-notification-provider
+  eventSeverity: error
+  eventSources:
+    - kind: ImagePolicy
+      name: '*'
