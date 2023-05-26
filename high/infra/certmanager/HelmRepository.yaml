@@ -4,6 +4,8 @@ kind: HelmRepository
 metadata:
   name: jetstack
   namespace: flux-system
+  labels:
+    org.zroot.gitops: infra
 spec:
   interval: 10m
   url: https://charts.jetstack.io

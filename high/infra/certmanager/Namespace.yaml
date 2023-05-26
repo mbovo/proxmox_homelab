@@ -5,3 +5,4 @@ metadata:
   labels:
     name: cert-manager
     prometheus: scrape
+    org.zroot.gitops: infra

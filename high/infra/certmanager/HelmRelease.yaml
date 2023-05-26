@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: cert-manager
   namespace: flux-system
+  labels:
+    org.zroot.gitops: infra
 spec:
   interval: 10m
   releaseName: cert-manager

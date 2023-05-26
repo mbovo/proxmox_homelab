@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: metrics-server
   namespace: flux-system
+  labels:
+    org.zroot.gitops: infra
 spec:
   interval: 10m
   releaseName: metrics-server
@@ -11,6 +13,7 @@ spec:
   upgrade:
     crds: CreateReplace
   install:
+    createNamespace: true
     crds: CreateReplace
   chart:
     spec:

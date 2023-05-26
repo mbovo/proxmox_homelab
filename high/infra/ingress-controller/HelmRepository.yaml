@@ -4,6 +4,8 @@ kind: HelmRepository
 metadata:
   name: nginx-ingress
   namespace: flux-system
+  labels:
+    org.zroot.gitops: infra
 spec:
   interval: 5m
   url: https://helm.nginx.com/stable

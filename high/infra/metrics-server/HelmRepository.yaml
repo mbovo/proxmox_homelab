@@ -4,6 +4,8 @@ kind: HelmRepository
 metadata:
   name: kube-sigs-metric-server
   namespace: flux-system
+  labels:
+    org.zroot.gitops: infra
 spec:
   interval: 10m
   url: https://kubernetes-sigs.github.io/metrics-server/
