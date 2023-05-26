@@ -59,6 +59,16 @@ spec:
         - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
         - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$<
     prometheus:
+      ingress:
+        enabled: true
+        hosts:
+          - prometheus.lab.zroot.org
+        annotations:
+          cert-manager.io/cluster-issuer: acme-digitalocean
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - prometheus.lab.zroot.org
       prometheusSpec:
         enableRemoteWriteReceiver: true
         serviceMonitorSelectorNilUsesHelmValues: false
