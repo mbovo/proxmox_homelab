@@ -1,23 +1,54 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nfs-sc
-  namespace: flux-system
+    name: nfs-sc
+    namespace: flux-system
 spec:
-  interval: 10m
-  releaseName: nfs-sc
-  chart:
-    spec:
-      chart: nfs-subdir-external-provisioner
-      sourceRef:
-        kind: HelmRepository
-        name: kubernetes-sigs-nfs
-        namespace: flux-system
-      interval: 10m
-  values:
-    nfs:
-      path: /DATA/k8s/storage/gitops-nfs
-      server: "10.12.12.80"
-    storageClass:
-      defaultClass: true
-      name: nfs-sc
+    interval: 10m
+    releaseName: nfs-sc
+    chart:
+        spec:
+            chart: nfs-subdir-external-provisioner
+            sourceRef:
+                kind: HelmRepository
+                name: kubernetes-sigs-nfs
+                namespace: flux-system
+            interval: 10m
+    values:
+        nfs:
+            path: /DATA/k8s/storage
+            server: ENC[AES256_GCM,data:dHPtoxSxm/IKXHU=,iv:hgd+kZaWpNcbcxSLVaKlzO66aaQnmrZQVDLwMR4dI7k=,tag:UYoPdC4nVexXSFxSXManDg==,type:str]
+        storageClass:
+            defaultClass: true
+            name: nfs-sc
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-26T08:45:21Z"
+    mac: ENC[AES256_GCM,data:6h1uHU67rEMJSpv0bC+utG28VmEPYP4OtPxR/eqBwlp+3DQH1vAzPywt7EFth2NCCvkn8Xpm1Gj6tMBgW+OYh8YSeoF0CNJoqTHZVAvj64A/GgpALFMZv+xttKw+rWk+YlW15qj6fd+nshqdHEFf0CT/eoeh4vetKN+QdXbhsZI=,iv:7ALQQ3Zgxlg8CmgHrF9BLiwRNVZDPMWUs9h2mHkGCZ8=,tag:phyuwZTGuFmNu1LS87CHlA==,type:str]
+    pgp:
+        - created_at: "2023-05-26T08:45:20Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA3bGu4MnJmFfAQ//cB1ONbMl8evC3Y2B/RHkT/i1fJ8dRoJ4jJ7FZr5X15OA
+            h5eQ7YpPZcNv4w2jPQ6+OsMLiX/iu8YqtpVXyoj0G2Lt/1KqmbogKSf1tkwJs25o
+            X2siMsNzvaWfTJYOKIFbsbz8i6ALIt0z2SiI6eqogkNT7Zpv7h02uCy2X3eH0A39
+            yahuE1M+ntDX2xAXQh0X5g/lHXwa4DHS1h+2wasbFm8m06JQFgWlxqShCoplRFpv
+            f6kL0U21t9WeD3ocvJfa+a2qAutzuj/ztVCwWrU5ujfZJO7o6nKL7y9aeJ20aAae
+            pIGhBYQvsz1pe+S71AcCQirdCisOjNK8Mikte+pJCjMZz5iCX56bQ0JgYRav48BN
+            GGl24+DXgifOQvDrQCVJD5D9zGpKrrcQJZMmNmX4NTTaUicGEnahY3fCQxbeUoSy
+            E15MWtbeuRwT+GO7ReoL6wwaFjZrVs56jGuzBf0bcWqpwrSnU/yDN0lRMUHIjy3X
+            216lSDjVkppCwjfU4Wp/MSQsQrKL8IPgNWRjNi5Itqsp4LHDMs7Ym5wN8enGwVUD
+            20bfYXtdq2XllChy1049LIreh4qJz1OJCkGixpIgNSwRe3NXqWB0BwjCKMuzYLEx
+            a/IecUKerohZaP12SowNL0wLz95GOOr6icrMoGhxBsfjGg4m8VqMk/O6mRprY43S
+            XAG4mqp+sJWMEGMxEnQSYiIFNNamasRBqRLWB8WsmhNnLUaCaYeJGUR2abTLc6f2
+            bDZBNdAEiLQwOpDL/qk/QkNnjGBBaKz85jmmUp+BBiR00a4uhXah8UPYPLHW
+            =nr3Z
+            -----END PGP MESSAGE-----
+          fp: 171CF9C1D45CB28C5ECA2964FCC4AEC805651FBB
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|addresses|server|configLogicalBackup)$
+    version: 3.7.3
