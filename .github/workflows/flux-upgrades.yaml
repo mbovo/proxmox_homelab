@@ -7,8 +7,8 @@ on:
         description: "Flux version to update in form x.y.z (without 'v'), if not specified will be latest"
         required: false
         default: ""
-#  schedule:
-#    - cron: "0 10 * * *"
+  schedule:
+    - cron: "0 10 * * *"
 
 jobs:
   create-env-lists:
