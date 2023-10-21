@@ -11,6 +11,7 @@ spec:
     secretRef:
       name: sops-gpg
   interval: 10m0s
+  timeout: 2m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
