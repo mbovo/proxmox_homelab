@@ -1,0 +1,70 @@
+name: update-flux-envs
+
+on:
+  workflow_dispatch:
+    inputs:
+      fluxVersion:
+        description: "Flux version to update in form x.y.z (without 'v'), if not specified will be latest"
+        required: false
+        default: ""
+#  schedule:
+#    - cron: "0 10 * * *"
+
+jobs:
+  create-env-lists:
+    runs-on:
+      group: infra-runners
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v4
+    - id: matrix
+      run: |
+        script=$(./make_matrix.sh)
+        echo "matrix=${script}" >> $GITHUB_OUTPUT
+  update-all-envs:
+    runs-on:
+      group: infra-runners
+    needs: [ create-env-lists ]
+    permissions:
+      pull-requests: write
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.create-env-lists.outputs.matrix) }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+        with:
+          version: ${{ github.event.inputs.fluxVersion }}
+      - name: Check for updates
+        id: update
+        env:
+          BASE: "${{ matrix.base }}"
+          CURRENT: "${{ matrix.ver }}"
+          EXTRA: "${{ matrix.extra-component }}"
+        run: |
+          if [[ "${EXTRA}" = "false" ]]; then
+            flux install --export > "${BASE}/gotk-components.yaml"
+          else
+            flux install --export --components-extra=image-reflector-controller,image-automation-controller > "${BASE}/gotk-components.yaml"
+          fi
+          NEXT_VERSION="$(flux -v)"
+          NEXT_VERSION_INT="$(flux -v | awk '{print $3}')"
+          echo "flux_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "flux_version_short=$NEXT_VERSION_INT" >> $GITHUB_OUTPUT
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            branch: update-env-${{ matrix.env }}-${{ steps.update.outputs.flux_version_short }}
+            commit-message: Update ${{ matrix.env }} from ${{ matrix.ver }} to ${{ steps.update.outputs.flux_version_short }}
+            base: main
+            title: Update ${{ matrix.env }} from ${{ matrix.ver }} to ${{ steps.update.outputs.flux_version_short }}
+            labels: |
+              flux-update
+            body: |
+              Update ${{ matrix.env }} to ${{ steps.update.outputs.flux_version }}
+              [Release notes](https://github.com/fluxcd/flux2/releases/tag/v${{ steps.update.outputs.flux_version_short }})
