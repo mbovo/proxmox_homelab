@@ -1,0 +1,21 @@
+{
+    "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.7/.schema/devbox.schema.json",
+    "packages": [
+      "ansible@latest",
+      "go-task@latest",
+      "fluxcd@latest",
+      "pre-commit@latest",
+      "terraform@1.5.7",
+      "packer@latest"
+    ],
+    "shell": {
+      "init_hook": [
+        "echo 'Welcome to devbox!' > /dev/null"
+      ],
+      "scripts": {
+        "test": [
+          "echo \"Error: no test specified\" && exit 1"
+        ]
+      }
+    }
+  }
