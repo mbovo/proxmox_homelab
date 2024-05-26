@@ -9,7 +9,7 @@ spec:
   targetNamespace: monicahq
   chart:
     spec:
-      chart: monica
+      chart: charts/monica
       sourceRef:
         kind: GitRepository
         name: monicahq
@@ -22,3 +22,5 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: monicahq-values
+    - kind: Secret
+      name: monicahq-secrets

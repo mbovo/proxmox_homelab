@@ -6,8 +6,8 @@ image:
 replicaCount: 1
 
 ingress:
-  enabled: true
-  # className: nginx
+  enabled: false
+  className: treafik
   annotations:
   #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
     kubernetes.io/tls-acme: "true"
@@ -17,28 +17,20 @@ ingress:
   pathType: Prefix
 
 monica:
-  host: monica.k.zroot.org
   existingSecret:
     enabled: false
   storagedir: /var/www/html/storage
   mail:
     enabled: false
-    fromAddress: user
-    replyToAddress: user
     smtp:
-      host: domain.com
       encryption: tls
       port: 465
-      username: user
-      password: pass
 
 ##
 ## Internal database configuration (SQLite)
 ##
 internalDatabase:
   enabled: false
-  ## Database fullpath file
-  name: /var/www/html/database/monica.sqlite
 
 
 ##
@@ -53,11 +45,6 @@ externalDatabase:
 mariadb:
   ## Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
   enabled: true
-
-  auth:
-    database: monica
-    username: monica-XSAc6uTM2tJQdy
-    password: iHXkP5qM7MRVMR
 
   architecture: standalone
 
@@ -77,11 +64,6 @@ mariadb:
 ##
 redis:
   enabled: true
-  auth:
-    enabled: true
-    password: iHXkP5qM7MRVMR
-    # existingSecret
-    # existingSecretPasswordKey
 
 ##
 ## Meilisearch chart configuration

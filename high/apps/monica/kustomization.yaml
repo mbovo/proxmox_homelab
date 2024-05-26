@@ -8,5 +8,10 @@ configMapGenerator:
     namespace: flux-system
     files:
       - values.yaml=values.yaml
+secretGenerator:
+  - name: monicahq-secrets
+    namespace: flux-system
+    files:
+      - values.yaml=secrets.yaml
 configurations:
   - kustomizeconfig.yaml
