@@ -1,0 +1,173 @@
+image:
+  repository: ghcr.io/monicahq/monica-next
+  tag: main
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+ingress:
+  enabled: true
+  # className: nginx
+  annotations:
+  #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels: {}
+  path: /
+  pathType: Prefix
+
+monica:
+  host: monica.k.zroot.org
+  existingSecret:
+    enabled: false
+  storagedir: /var/www/html/storage
+  mail:
+    enabled: false
+    fromAddress: user
+    replyToAddress: user
+    smtp:
+      host: domain.com
+      encryption: tls
+      port: 465
+      username: user
+      password: pass
+
+##
+## Internal database configuration (SQLite)
+##
+internalDatabase:
+  enabled: false
+  ## Database fullpath file
+  name: /var/www/html/database/monica.sqlite
+
+
+##
+## External database configuration
+##
+externalDatabase:
+  enabled: false
+
+##
+## MariaDB chart configuration
+##
+mariadb:
+  ## Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
+  enabled: true
+
+  auth:
+    database: monica
+    username: monica-XSAc6uTM2tJQdy
+    password: iHXkP5qM7MRVMR
+
+  architecture: standalone
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  primary:
+    persistence:
+      enabled: true
+      # storageClass: ""
+      accessMode: ReadWriteOnce
+      size: 8Gi
+
+##
+## Redis chart configuration
+## for more options see https://github.com/bitnami/charts/tree/master/bitnami/redis
+##
+redis:
+  enabled: true
+  auth:
+    enabled: true
+    password: iHXkP5qM7MRVMR
+    # existingSecret
+    # existingSecretPasswordKey
+
+##
+## Meilisearch chart configuration
+## for more options see https://github.com/meilisearch/meilisearch-kubernetes/tree/main/charts/meilisearch
+##
+meilisearch:
+  enabled: false
+  environment:
+    MEILI_ENV: production
+    # MEILI_MASTER_KEY
+  auth:
+    # existingMasterKeySecret
+
+## Cronjob to execute monica scheduled tasks
+cronjob:
+  enabled: true
+
+  # Allow configuration of lifecycle hooks
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
+  lifecycle: {}
+    # postStartCommand: []
+    # preStopCommand: []
+
+service:
+  type: ClusterIP
+  port: 8080
+  loadBalancerIP: nil
+  nodePort: nil
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  # monica storage (/var/www/html/storage)
+  enabled: true
+  annotations: {}
+  ## monica storage Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner. (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim:
+
+  accessMode: ReadWriteOnce
+  size: 4Gi
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+tests:
+  unitTests:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
