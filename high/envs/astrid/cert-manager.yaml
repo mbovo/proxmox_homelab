@@ -12,6 +12,3 @@ spec:
     name: flux-system
   path: ./high/infra/certmanager
   prune: true
-  dependsOn:
-    - name: metallb
-      namespace: flux-system
