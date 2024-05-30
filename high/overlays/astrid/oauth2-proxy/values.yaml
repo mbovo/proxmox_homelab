@@ -1,0 +1,30 @@
+extraArgs:
+  github-user: mbovo
+  provider: github
+  scope: "read:org,user:email"
+  skip-provider-button: true
+  http-address: 0.0.0.0:4180
+  reverse-proxy: true
+  cookie-refresh: 1h
+  real-client-ip-header: X-Forwarded-For
+  redirect-url: https://auth.k.zroot.org/oauth2/callback
+  whitelist-domain: ".k.zroot.org"
+  cookie-domain: ".k.zroot.org"
+  email-domain: "*"
+  upstream: "static://204"
+
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+  tls:
+    - hosts:
+        - auth.k.zroot.org
+      secretName: oauth2-proxy-tls
+  hosts:
+    - auth.k.zroot.org
+  path: /oauth2
+  pathType: Prefix

@@ -1,0 +1,11 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: monicahq
+  namespace: flux-system
+spec:
+  valuesFrom:
+    - kind: ConfigMap
+      name: monicahq-values
+    - kind: Secret
+      name: monicahq-secrets
