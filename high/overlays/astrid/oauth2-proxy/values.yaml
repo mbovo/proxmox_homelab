@@ -10,6 +10,7 @@ extraArgs:
   redirect-url: https://auth.k.zroot.org/oauth2/callback
   whitelist-domain: ".k.zroot.org"
   cookie-domain: ".k.zroot.org"
+  cookie-secure: false
   email-domain: "*"
   upstream: "static://204"
 

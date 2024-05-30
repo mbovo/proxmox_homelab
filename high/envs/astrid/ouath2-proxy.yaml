@@ -14,3 +14,8 @@ spec:
     name: flux-system
   path: ./high/overlays/astrid/oauth2-proxy
   prune: true
+  dependsOn:
+    - name: cert-manager
+      namespace: flux-system
+    - name: certs
+      namespace: flux-system

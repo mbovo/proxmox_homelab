@@ -6,12 +6,13 @@ image:
 replicaCount: 1
 
 ingress:
-  enabled: false
-  className: treafik
+  enabled: true
+  className: traefik
   annotations:
   #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: monicahq-forwardauth@kubernetescrd
   labels: {}
   path: /
   pathType: Prefix

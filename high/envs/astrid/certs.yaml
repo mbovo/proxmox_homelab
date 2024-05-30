@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./high/infra/certs/overlays/astrid
+  path: ./high/overlays/astrid/certs
   prune: true
   dependsOn:
     - name: cert-manager

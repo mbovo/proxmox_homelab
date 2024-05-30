@@ -23,6 +23,20 @@ jobs:
     - name: Setup terraform docs
       uses: draios/action-setup-terraform-docs@v0.0.2
 
+    - name: Install arkade
+      if:  ${{ ! ((github.event_name == 'push') && (github.ref == 'refs/heads/main')) }}
+      uses: alexellis/setup-arkade@v3
+    - uses: alexellis/arkade-get@master
+      if:  ${{ ! ((github.event_name == 'push') && (github.ref == 'refs/heads/main')) }}
+      with:
+        kubectl: latest
+        helm: latest
+        kubeconform: latest
+        kustomize: latest
     - uses: pre-commit/action@v2.0.3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Check flux resources
+      shell: bash
+      run: .github/workflows/check.sh

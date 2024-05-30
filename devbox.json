@@ -6,7 +6,8 @@
       "fluxcd@latest",
       "pre-commit@latest",
       "terraform@1.5.7",
-      "packer@latest"
+      "packer@latest",
+      "kubeconform@latest"
     ],
     "shell": {
       "init_hook": [

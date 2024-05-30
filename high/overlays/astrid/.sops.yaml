@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: .*.yaml
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|addresses|server|configLogicalBackup|channel|monica|mariadb|redis|config)$
+    pgp: 46FAA8106554E4BAC648A9C8DAC3C1A5974CE5A1
