@@ -1,5 +1,5 @@
 image:
-  flavor: "alpine"
+  flavor: "debian"
 ingress:
   enabled: true
   annotations:
