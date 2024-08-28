@@ -1,0 +1,18 @@
+image:
+  flavor: "alpine"
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: traccar-forwardauth@kubernetescrd
+
+externalService:
+  type: LoadBalancer
+  enabled: true
+
+mysql:
+  enabled: true
+  primary:
+    persistence:
+      enabled: true

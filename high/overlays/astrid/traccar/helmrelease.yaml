@@ -1,0 +1,11 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traccar
+  namespace: flux-system
+spec:
+  valuesFrom:
+    - kind: ConfigMap
+      name: traccar-values
+    - kind: Secret
+      name: traccar-secrets
