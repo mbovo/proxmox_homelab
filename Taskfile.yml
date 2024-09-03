@@ -16,6 +16,11 @@ tasks:
     cmds:
       - pre-commit run -a
 
+  verify:
+    desc: Verify kustomize build
+    cmds:
+      - bash .github/workflows/check.sh
+
   # setup local env tasks
   setup:
     desc: Bootstrap dev environment

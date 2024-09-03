@@ -22,8 +22,9 @@ for i in $(ls -1 high/envs); do
     p=$(cat $f | grep path | cut -d: -f 2 | tr -d ' ')
     if [[ -e "$root/$p" ]]; then
       pushd "../../../$p"
+      echo "------"
       echo $p
-      kustomize build . > /dev/null
+      kustomize build . | kubeconform -summary -ignore-missing-schemas -schema-location default -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' -schema-location https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json
       popd
     fi
   done

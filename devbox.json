@@ -7,7 +7,8 @@
       "pre-commit@latest",
       "terraform@1.5.7",
       "packer@latest",
-      "kubeconform@latest"
+      "kubeconform@latest",
+      "terraform-docs@latest"
     ],
     "shell": {
       "init_hook": [
