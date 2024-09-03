@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/tls-acme: "true"
+    name: website
+    namespace: website
+labels:
+    app.kubernetes.io/instance: website
+    app.kubernetes.io/name: website
+spec:
+    ingressClassName: traefik
+    rules:
+        - host: ENC[AES256_GCM,data:ej+JKepwR9c=,iv:6sesf84z0r6+bU13q0NbgvBpZwnwUX0z4yDi4Ucom4Y=,tag:EzmsVUINoiAoxJ/pesgnLw==,type:str]
+          http:
+            paths:
+                - backend:
+                    service:
+                        name: website
+                        port:
+                            number: 80
+                  path: /
+                  pathType: ImplementationSpecific
+    tls:
+        - hosts:
+            - ENC[AES256_GCM,data:4YR35S8TLEc=,iv:GCEInKG6rD2R256okg3ku7jqPyGRwptQ7iKHN7tRJes=,tag:uzNVsrhEJUku7e+I3rRGTA==,type:str]
+          secretName: website-tls
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-09-03T13:06:15Z"
+    mac: ENC[AES256_GCM,data:DT4tWjpevxcxKSlwBL2F7lnpMSTwGJMbgMJAQ7HmrWDGhSAHDgZEx41UlsNKAGL7pyyjB+7oaHlxdfVEiq83e9irPyc3qmXxQOt0QRSehUeK02TeGQD4q+S2VC0ZSKJPdIyFXF0YZaJ/hk8GvpmiJDJqwns0+oxatPbVUGJqgKM=,iv:k9rBWjztHTuI9ma+02yjdNucEQlQjeBgMYp2UAs2CrA=,tag:peUeXR635gT8SPIVZYrv8A==,type:str]
+    pgp:
+        - created_at: "2024-09-03T13:06:15Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMAz4Gf+0qjwzrAQ/+JByIP9sXXK1eLC3ytcNou7/IZQm3AU40zqZy4fF2et8f
+            9wOoBITlB4f8uLFNHJfGxPpn1yGmLGfV5BWnA4iB5jYaAVsLl7CGnrKet/4d2XE7
+            9Thq02g51W1JxYyqQvo+m2q9YhPix4Uu9vg03pBr1gpugqqLbX1QGNg3Q3W3UEUw
+            nSfsylcA3ZU7jo1KN0xzBHBUsXa0yXAhY3/HS1vTAlJEDirHGTFUrDfEF6b8Lz4V
+            Wi3+bEz/+mKxKm5jEC1swfvNVqo4tAieb/VtPB57ewl4AAYtWmhlek4EDvbeTx0i
+            DIfV3wvAvsH8kcuICw1YOaKaN7NYktiLoSKzVMxJ922SnyDtC//0WAt1LgJYIZWu
+            ThtbhzUsqSlKMwl3OhlQIeHj5U2IawXBTfoyefI99/7Xlb5qfB0fxnIbRjdFtSMf
+            5aknu5eAMqd/5RiJulVHrK/qsvGug0a+40pr7kDvWgk0ZZidG3ekj6ue3aXtIiVH
+            INmDIi26dupTwFWT3EI2k4xWs+xm7N4WXa0C050jKErIZqwLT5XEs6kFtR3WoHdS
+            +X/h0O2tnYYI4wcuuP7fS6kOxH8fPlzDHnPqJMKnAdWQ1H/wUZCL9c56J1JGsp1d
+            IU4YCx97lOgw0SD8hE9wTVbEwtup3uEMoWxRLmMaZewc/oV0K+ak7NGJbFuASCjU
+            ZgEJAhBgdbfTdSTUMafGsyeE5OtwGM+Cq7M8DmrbVKuz7909Y7y/LdUtQbC51IQA
+            lihN5hhyGH1YDJdPADE/kM7+YHCf+2yE66tyUeflvEBEvFPci5gCb2kZOd4zen4m
+            NQsYbcCl/w==
+            =kObl
+            -----END PGP MESSAGE-----
+          fp: 46FAA8106554E4BAC648A9C8DAC3C1A5974CE5A1
+    encrypted_regex: ^(data|stringData|consumerKey|email|groupName|applicationKey|host|hosts|addresses|server|configLogicalBackup|channel|monica|mariadb|redis|config|mysql|ingress)$
+    version: 3.8.1
