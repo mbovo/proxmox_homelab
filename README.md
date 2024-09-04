@@ -7,7 +7,7 @@ The installation/configuration of proxmox itself is out-of-scope and is not incl
 
 The lab is actually composed of 3 nodes, each one with the following specs:
 
-- CPU: 12 x Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz (1 socket)
+- CPU: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz (1 socket, 6+6 cores)
 - RAM: 48GB
 - Storage: 1 x 512GB NVMe + 1 x 1TB SDD
 - Network: 1 x 1Gbps + 1 x 10Gbps
@@ -53,8 +53,6 @@ You will find a `envs` subdirectory referencing each kubernetes cluster
 
 ## Requirements
 
-
-
 - [Taskfile](https://taskfile.dev)
 - [Hashicorp Packer](https://www.packer.io)
 - [Hashicorp Terraform](https://www.terraform.io)
@@ -87,7 +85,7 @@ terraform apply
 
 ```
 
-## CI/CD
+## CI/CD (TODO)
 
 The CI/CD pipeline is based on **Github Actions** running on self-hosted runners.
 Opening a PR will trigger a pipeline that:
